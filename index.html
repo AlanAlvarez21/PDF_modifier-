@@ -57,47 +57,9 @@
 
     async function modifyPdf2signers(evt) {
        
-        const url  = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-      
-  	  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-
-      // Load a PDFDocument from the existing PDF bytes
-      const pdfDoc = await PDFDocument.load(existingPdfBytes)
-
-      // Embed the Helvetica font
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-      // Get the first page of the document
-      const pages = pdfDoc.getPages()
-      const firstPage = pages[0]
-
-      // Get the width and height of the first page
-      const { width, height } = firstPage.getSize()
-
-      // Draw a string of text diagonally across the first page
-      firstPage.drawText('Hola mundo!', {
-        x: 5,
-        y: height / 2 + 300,
-        size: 50,
-        font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
-        rotate: degrees(-45),
-      })
-
-      // Serialize the PDFDocument to bytes (a Uint8Array)
-      const pdfBytes = await pdfDoc.save()
-
-			// Trigger the browser to download the PDF document
-      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
-
-        }
-
-
-    async function modifyPdf1signers() {
-      // Fetch an existing PDF document
-      const url = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-      
-  	  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+ // Fetch an existing PDF document
+// const url = 'https://pdf-lib.js.org/assets/dod_character.pdf'
+  	  const existingPdfBytes = evt.data  // await fetch(url).then(res => res.arrayBuffer())
 
       // Load a PDFDocument from the existing PDF bytes
       const pdfDoc = await PDFDocument.load(existingPdfBytes)
@@ -113,7 +75,7 @@
 
       const lp = pages[0] //Get the last page of the document 
 
-      const lp = pages[0] //Get the last page of the document 
+      const kk = pages[0] //Get the last page of the document 
 
       const pu = pages[penultimate] //
       const firstPage = pages[0]  // Get the first page of the document
@@ -127,25 +89,79 @@
         y: height / 1850 ,
         size: 11,
         font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
+        color: rgb(0.95, .5, 0.1),
       })
       // Draw the pages secuence in the last page 
       lp.drawText(`Page ${lastPage} of ${doc_length}`, { 
+        x: 370,
+        y: height / 1850 ,
+        size: 11,
+        font: helveticaFont,
+        color: rgb(.95, 0, 0),
+      })
+      kk.drawText(`Page ${pu} of ${doc_length}`, { 
         x: 450,
         y: height / 1850 ,
         size: 11,
         font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
+        color: rgb(0, 0, 0),
       })
-      pp.drawText(`Page ${lastPage} of ${doc_length}`, { 
-        x: 450,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(0.95, 0.1, 0.1),
-      })
-  
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      const pdfBytes = await pdfDoc.save()
 
+			// Trigger the browser to download the PDF document
+      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+
+        }
+
+
+    async function modifyPdf1signers() {
+      // Fetch an existing PDF document
+      const url = 'https://pdf-lib.js.org/assets/dod_character.pdf'
+  	  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+      // Load a PDFDocument from the existing PDF bytes
+      const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+      // Embed the Helvetica font
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+      const pages = pdfDoc.getPages()
+
+      const doc_length = pages.length
+      const lastPage = doc_length - 1 
+      const penultimate = doc_length - 2 
+
+      const lp = pages[0] //Get the last page of the document 
+      const kk = pages[0] //Get the last page of the document 
+      const firstPage = pages[0]  // Get the first page of the document
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize()
+
+      // Draw Termino de Reporte
+      firstPage.drawText('Termino de Reporte', {
+        x: 250,
+        y: height / 1850 ,
+        size: 11,
+        font: helveticaFont,
+        color: rgb(0.95, .5, 0.1),
+      })
+      // Draw the pages secuence in the last page 
+      lp.drawText(`Page ${lastPage} of ${doc_length}`, { 
+        x: 370,
+        y: height / 1850 ,
+        size: 11,
+        font: helveticaFont,
+        color: rgb(.95, 0, 0),
+      })
+      kk.drawText(`Page ${penultimate} of ${doc_length}`, { 
+        x: 450,
+        y: height / 1850 ,
+        size: 11,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+      })
       // Serialize the PDFDocument to bytes (a Uint8Array)
       const pdfBytes = await pdfDoc.save()
 
