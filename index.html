@@ -1,173 +1,23 @@
-<html>
-  <head>
-    <meta charset="utf-8" />
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8" />
+        <title>PDF converter</title>
+        <link rel="stylesheet" href="css/style.css"> 
         <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+        <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
         <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+        </script>
     </head>
+    <body>
+        <h1 id="myHeading" ><code>Modificador de PDFs</code></h1>
 
-  <body>
-    <p><code></code>Click the button to modify an existing PDF document</code></p>
-    <button onclick="modifyPdf1signers()">Modify PDF document with 1 signers</button>
-    <input type="file" id="files" name="files[]" multiple onclick="modifyPdf2signers()" />
-    <output id="list"></output>
+        <div class="example"><p>
+        <h1 >¿Cuántas hojas de firmas tiene el documento?</h1>
+        <p><code></code>Selecciona el botón correspondiente al número de hojas de firmas del documento a modificar</code></p>
+        <a id="btn" onclick="window.location.href='forms/1signer.html'">Modificar PDF con 1 hoja de firmas</a>
+        <a id="btn" onclick="window.location.href='forms/2signer.html'">Modificar PDF con 2 hojas de firmas</a>  
+      </p>  
+      </div>
+    </body>
+ </html>
 
-        <style type="text/css"> 
-                    body {
-                    width: 100vw;
-                    height: 100vh;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                    }
-
-                    p {
-                    font-family: helvetica;
-                    font-size: 24px;
-                    text-align: center;
-                    margin: 25px;
-                    }
-
-                    .small {
-                    font-family: helvetica;
-                    font-size: 18px;
-                    text-align: center;
-                    margin: 25px;
-                    }
-
-                    button,input {
-                    margin-top: 15px;
-                    background-color: #008CBA;
-                    border: none;
-                    color: white;
-                    padding: 20px 32px;
-                    text-align: center;
-                    font-size: 16px;
-                    }
-                    div{ 
-                        margin-top: 15px;
-                    }
-
-        </style> 
-      
-  </body>
-
-  <script>
-    const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
-
-    async function modifyPdf2signers(evt) {
-       
- // Fetch an existing PDF document
-// const url = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-  	  const existingPdfBytes = evt.data  // await fetch(url).then(res => res.arrayBuffer())
-
-      // Load a PDFDocument from the existing PDF bytes
-      const pdfDoc = await PDFDocument.load(existingPdfBytes)
-
-      // Embed the Helvetica font
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-      const pages = pdfDoc.getPages()
-
-      const doc_length = pages.length
-      const lastPage = doc_length - 1 
-      const penultimate = doc_length - 2 
-
-      const lp = pages[0] //Get the last page of the document 
-
-      const kk = pages[0] //Get the last page of the document 
-
-      const pu = pages[penultimate] //
-      const firstPage = pages[0]  // Get the first page of the document
-
-      // Get the width and height of the first page
-      const { width, height } = firstPage.getSize()
-
-      // Draw Termino de Reporte
-      firstPage.drawText('Termino de Reporte', {
-        x: 250,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(0.95, .5, 0.1),
-      })
-      // Draw the pages secuence in the last page 
-      lp.drawText(`Page ${lastPage} of ${doc_length}`, { 
-        x: 370,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(.95, 0, 0),
-      })
-      kk.drawText(`Page ${pu} of ${doc_length}`, { 
-        x: 450,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      })
-      // Serialize the PDFDocument to bytes (a Uint8Array)
-      const pdfBytes = await pdfDoc.save()
-
-			// Trigger the browser to download the PDF document
-      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
-
-        }
-
-
-    async function modifyPdf1signers() {
-      // Fetch an existing PDF document
-      const url = 'https://pdf-lib.js.org/assets/dod_character.pdf'
-  	  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-
-      // Load a PDFDocument from the existing PDF bytes
-      const pdfDoc = await PDFDocument.load(existingPdfBytes)
-
-      // Embed the Helvetica font
-      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-      const pages = pdfDoc.getPages()
-
-      const doc_length = pages.length
-      const lastPage = doc_length - 1 
-      const penultimate = doc_length - 2 
-
-      const lp = pages[0] //Get the last page of the document 
-      const kk = pages[0] //Get the last page of the document 
-      const firstPage = pages[0]  // Get the first page of the document
-
-      // Get the width and height of the first page
-      const { width, height } = firstPage.getSize()
-
-      // Draw Termino de Reporte
-      firstPage.drawText('Termino de Reporte', {
-        x: 250,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(0.95, .5, 0.1),
-      })
-      // Draw the pages secuence in the last page 
-      lp.drawText(`Page ${lastPage} of ${doc_length}`, { 
-        x: 370,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(.95, 0, 0),
-      })
-      kk.drawText(`Page ${penultimate} of ${doc_length}`, { 
-        x: 450,
-        y: height / 1850 ,
-        size: 11,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      })
-      // Serialize the PDFDocument to bytes (a Uint8Array)
-      const pdfBytes = await pdfDoc.save()
-
-			// Trigger the browser to download the PDF document
-      download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
-
-    }
-  </script>
-</html>

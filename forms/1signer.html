@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css"> 
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/BrowserFS/2.0.0/browserfs.min.js"></script>
+    <script type='text/javascript' src='../libs/blobstream.js'></script>
+    <script type='text/javascript' src='../libs/pdfkit.js'></script>
+    <script type='text/javascript' src='../libs/source.js'></script>
+  </head>
+
+<body> 
+    <h1 id="myHeading"> <code>Convertir PDF con 1 Firmantes</code></h1>
+    <div class="example1"><p>     
+        <p>Subir archivo y hacer click en:<code>'Modificar PDF'</code></p>
+    <div class="example"><p>
+    <div class="example">
+            <input class="button" type="file" accept="application/pdf" id="files1" name="files1[]" multiple onchange='openFile(event)'/>       <!-- Boton de upload de archivos  -->
+            <output id="file_list1"></output>
+    </div>
+        </p>
+        <p>
+        <div class="drop-zone">
+          <span class="drop-zone__prompt">Arrastra y suelta archivo</span>
+          <input type="file" name="myFile" class="drop-zone__input">
+        </div>
+      </p>
+        <p>   
+            <a  id="btn" onclick="modificarPdf1firmante()"><code>Modificar PDF</code></a>
+        <p class="small"> <code>(El archivo se descargará automáticamente)</code></p>
+        </p>
+    </div>
+    </div>.
+<a id="btn2" onclick="window.location.href='../index.html'"><code>Regresar al inicio</code></a>
+<script src="../js/app.js"></script>
+
+</body>
+
+</html>
+
+        
